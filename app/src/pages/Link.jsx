@@ -6,12 +6,12 @@ import {
   Box,
   Icon,
   Text,
-} from '@chakra-ui/react';
-import React, { useCallback, useState } from 'react';
+} from "@chakra-ui/react";
+import React, { useCallback, useState } from "react";
 
-import { usePlaidLink } from 'react-plaid-link';
+import { usePlaidLink } from "react-plaid-link";
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const SimplePlaidLink = () => {
   const navigate = useNavigate();
@@ -21,9 +21,9 @@ const SimplePlaidLink = () => {
   React.useEffect(() => {
     const createLinkToken = async () => {
       const response = await fetch(
-        'http://127.0.0.1:5000/api/create_link_token',
+        "http://127.0.0.1:5000/api/create_link_token",
         {
-          method: 'POST',
+          method: "POST",
         }
       );
       const { link_token } = await response.json();
@@ -39,11 +39,11 @@ const SimplePlaidLink = () => {
     const sendToken = async () => {
       try {
         const response = await fetch(
-          'http://127.0.0.1:5000/api/set_access_token',
+          "http://127.0.0.1:5000/api/set_access_token",
           {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               public_token: publicToken,
@@ -53,9 +53,9 @@ const SimplePlaidLink = () => {
         const data = await response.json();
         // enter you logic when the fetch is successful
         //store the access token local storage
-        localStorage.setItem('access_token', data.access_token);
-        localStorage.setItem('metadata', JSON.stringify(metadata));
-        navigate('/dashboard');
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("metadata", JSON.stringify(metadata));
+        navigate("/dashboard");
       } catch (error) {
         // enter your logic for when there is an error (ex. error toast)
         console.log(error);
@@ -76,15 +76,15 @@ const SimplePlaidLink = () => {
   return (
     <>
       <Flex
-        width={'100vw'}
-        height={'100vh'}
-        alignContent={'center'}
-        justifyContent={'center'}
+        width={"100vw"}
+        height={"100vh"}
+        alignContent={"center"}
+        justifyContent={"center"}
       >
         <Center>
           <Button
-            colorScheme='teal'
-            size='lg'
+            colorScheme="teal"
+            size="lg"
             onClick={() => open()}
             disabled={!ready}
           >
