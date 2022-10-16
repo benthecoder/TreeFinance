@@ -40,10 +40,6 @@ from plaid.model.transfer_create_idempotency_key import TransferCreateIdempotenc
 from plaid.model.transfer_user_address_in_request import TransferUserAddressInRequest
 from plaid.api import plaid_api
 
-PLAID_COUNTRY_CODES = ['US','CA']
-PLAID_PRODUCTS = ['auth','transactions']
-PLAID_ENV = 'sandbox'
-
 import flask
 
 api_info = json.load(open("plaid_api_secrets.json", "r"))
@@ -56,66 +52,10 @@ configuration = plaid.Configuration(
     }
 )
 
-if PLAID_ENV == 'sandbox':
-    host = plaid.Environment.Sandbox
-
-if PLAID_ENV == 'development':
-    host = plaid.Environment.Development
-
-if PLAID_ENV == 'production':
-    host = plaid.Environment.Production
-
 api_client = plaid.ApiClient(configuration)
 client = plaid_api.PlaidApi(api_client)
 
-products = []
-for product in PLAID_PRODUCTS:
-    products.append(Products(product))
-
-app = flask.Flask(__name__)
-
-@app.route('/api/create_link_token', methods=['POST'])
-def create_link_token():
-    try:
-        request = LinkTokenCreateRequest(
-            products=products,
-            client_name="Plaid Quickstart",
-            country_codes=list(map(lambda x: CountryCode(x), PLAID_COUNTRY_CODES)),
-            language='en',
-            user=LinkTokenCreateRequestUser(
-                client_user_id=str(time.time())
-            )
-        )
-    # create link token
-        response = client.link_token_create(request)
-        return flask.jsonify(response.to_dict())
-    except plaid.ApiException as e:
-        return json.loads(e.body)
-
-
-# Exchange token flow - exchange a Link public_token for
-# an API access_token
-# https://plaid.com/docs/#exchange-token-flow
-
-
-@app.route('/api/set_access_token', methods=['POST'])
-def get_access_token():
-    global access_token
-    global item_id
-    global transfer_id
-    public_token = flask.request.form['public_token']
-    try:
-        exchange_request = ItemPublicTokenExchangeRequest(public_token=public_token)
-        exchange_response = client.item_public_token_exchange(exchange_request)
-        return flask.jsonify(exchange_response.to_dict())
-    except plaid.ApiException as e:
-        return json.loads(e.body)
-
-@app.route("/transactions", methods=["POST"])
 def transactions():
-    user_id = request.args.get('item_id')
-    user_auth = request.args.get('access_token')
-
     cursor = ''
     added = []
     modified = []
@@ -123,7 +63,7 @@ def transactions():
     has_more = True
     try:
         while has_more:
-            request = TransactionsSyncRequest(access_token=user_auth, cursor=cursor)
+            request = TransactionsSyncRequest(access_token="access-sandbox-9c4af5eb-ccf4-4711-b670-ec3c642585b0", cursor=cursor)
             response = client.transactions_sync(request).to_dict()
             added.extend(response['added'])
             modified.extend(response['modified'])
@@ -132,10 +72,16 @@ def transactions():
             cursor = response['next_cursor']
             
         transactions = sorted(added, key=lambda t:t['date'])
-        return flask.jsonify({'transactions': transactions})
+        f = open("/home/victoneux/Downloads/out.json", "w")
+        class DateTimeEncoder(json.JSONEncoder):
+            def default(self, z):
+                if isinstance(z, datetime.date):
+                    return (str(z))
+                else:
+                    return super().default(z)
+        f.write(json.dumps(transactions, cls=DateTimeEncoder))
+        f.close()
     except plaid.ApiException as e:
-        error_response = e
-        return flask.jsonify(error_response)
+        print(e + "a")
 
-if __name__ == '__main__':
-    app.run(port=8739)
+transactions()
