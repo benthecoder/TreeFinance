@@ -6,3 +6,5 @@ mastercard-oauth1-signer
 mastercard-client-encryption
 gunicorn
 flask_cors
+openapi-python-client
+twilio

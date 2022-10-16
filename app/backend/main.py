@@ -172,28 +172,30 @@ def transactions():
         error_response = e
         return flask.jsonify(error_response)
 
-@app.route('/get_impact_metrics', methods=['POST'])
+
+@app.route("/get_impact_metrics", methods=["POST"])
 def get_impact_metrics():
     # api_client = mastercard.priceless()
     # impact_metric_api = oac.ImpactMetricsApi(api_client)
-    
-    donation_amount = flask.request.args.get('donation_amount')
-    currency = flask.request.args.get('currency')
-    
+
+    donation_amount = flask.request.args.get("donation_amount")
+    currency = flask.request.args.get("currency")
+
     impact_metrics = mastercard.impact_metrics(donation_amount, currency)
     return flask.jsonify(impact_metrics)
 
-@app.route('/mock_transaction', methods=['POST'])
+
+@app.route("/api/mock_transaction", methods=["POST"])
 def mock_transaction():
     trans = {
         "cardholderAmount": 0.01,
         "cardholderCurrency": "USD",
         "cardReference": "b8bd7cdb-88d9-4d22-96b6-5e55cc932ce6",
         "cardLastNumbers": "0577",
-        "merchantName": "Centra"
+        "merchantName": "Centra",
     }
     res = mastercard.mock_transaction(json.dumps(trans))
-    
+
     message = f"""
     Received transaction for card {trans["cardReference"]}, amount={trans["cardholderAmount"]} {trans["cardholderCurrency"]} at {trans["merchantName"]}.
     
@@ -204,17 +206,19 @@ def mock_transaction():
     send_message("+12403837465", message)
     return res
 
-@app.route('/register_consent', methods=['POST'])
+
+@app.route("/register_consent", methods=["POST"])
 def register_consent():
     res = mastercard.register_consent()
     return res
-    
+
+
 # @app.route('/message', methods=['POST'])
 # def message():
 #     res = send_message("+12403837465", "Test Message for HackWashU")
 #     print(res)
 #     return res
-    
+
 
 if __name__ == "__main__":
     app.run(port=8739)
