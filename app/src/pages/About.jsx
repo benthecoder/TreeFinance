@@ -1,22 +1,22 @@
 // create page that talkes about what carbon footprint is and provides resources to learn more designed using chakra ui
 
-import { Box, Heading, Text, VStack, Link } from '@chakra-ui/react';
-import Navbar from '../components/Navbar';
-import React from 'react';
+import { Box, Heading, Text, VStack, Link } from "@chakra-ui/react";
+import Navbar from "../components/Navbar";
+import React from "react";
 
 export default function About() {
   return (
     <>
       <Navbar />
 
-      <VStack spacing={8} mx={'auto'} maxW={'xl'} py={12} px={6}>
+      <VStack spacing={8} mx={"auto"} maxW={"xl"} py={12} px={6}>
         <Box>
           <Heading mb={2}> What is carbon footprint?</Heading>
           <Text>
-            A carbon footprint is the{' '}
-            <Text as={'span'} position={'relative'} color='green.400'>
+            A carbon footprint is the
+            <Text as={"span"} position={"relative"} color="green.400">
               total amount of greenhouse gases
-            </Text>
+            </Text>{" "}
             produced to directly and indirectly support human activities,
             usually expressed in equivalent tons of carbon dioxide (CO2).
           </Text>
@@ -30,8 +30,8 @@ export default function About() {
           </Text>
 
           <Text>
-            Our impact is evident as{' '}
-            <Text as={'span'} position={'relative'} color='red'>
+            Our impact is evident as{" "}
+            <Text as={"span"} position={"relative"} color="red">
               global temperatures are rising
             </Text>
             , weather events are becoming more severe and so on.
@@ -39,30 +39,30 @@ export default function About() {
         </Box>
         <Box>
           <Heading mb={2}>
-            How does{' '}
-            <Text as={'span'} position={'relative'} color='green.400'>
+            How does{" "}
+            <Text as={"span"} position={"relative"} color="green.400">
               Tree
             </Text>
             Finance help?
           </Heading>
           <Text>
-            We connect your bank account(s) with{' '}
+            We connect your bank account(s) with{" "}
             <Link
-              textDecoration={'underline'}
-              href='https://plaid.com/'
+              textDecoration={"underline"}
+              href="https://plaid.com/"
               isExternal
             >
-              {' '}
+              {" "}
               Plaid
             </Link>
             , and then we round up all your spendings and measure the possible
             impact if you donated them to the
             <Link
-              textDecoration={'underline'}
-              href='https://www.mastercard.us/en-us/vision/corp-responsibility/priceless-planet.html'
+              textDecoration={"underline"}
+              href="https://www.mastercard.us/en-us/vision/corp-responsibility/priceless-planet.html"
               isExternal
             >
-              {' '}
+              {" "}
               Priceless Planet Coalition.
             </Link>
           </Text>
@@ -71,15 +71,15 @@ export default function About() {
         <Box>
           <Heading mb={2}>How is impact measured?</Heading>
           <Text>
-            We use the{' '}
+            We use the{" "}
             <Link
-              textDecoration={'underline'}
-              href='https://developer.mastercard.com/priceless-planet/documentation/use-cases/impact_calculator/'
+              textDecoration={"underline"}
+              href="https://developer.mastercard.com/priceless-planet/documentation/use-cases/impact_calculator/"
               isExternal
             >
-              {' '}
+              {" "}
               Impact Metric Calculator
-            </Link>{' '}
+            </Link>{" "}
             service which determine the sustainability impact measured in the
             number of trees to be planted by the donated amount along with the
             carbon sequestered over a 5-year period.

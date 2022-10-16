@@ -1,30 +1,30 @@
-import { Flex, Spacer, Button, Box } from '@chakra-ui/react';
-import { FaRegCompass, FaInfoCircle, FaTree } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Flex, Spacer, Button, Box } from "@chakra-ui/react";
+import { FaRegCompass, FaInfoCircle, FaTree } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   let navigate = useNavigate();
 
   const routeHome = () => {
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   const routeExplore = () => {
-    navigate('/explore');
+    navigate("/explore");
   };
 
   const routeAbout = () => {
-    navigate('/about');
+    navigate("/about");
   };
 
   return (
-    <Box color='gray.100' m={4}>
+    <Box color="gray.100" m={4} mb={12}>
       <Flex>
         <Button
           leftIcon={<FaTree />}
-          size='lg'
-          variant='ghost'
-          fontWeight='bold'
+          size="lg"
+          variant="ghost"
+          fontWeight="bold"
           onClick={routeHome}
         >
           Home
@@ -33,18 +33,18 @@ function Navbar() {
         <Spacer />
         <Button
           leftIcon={<FaRegCompass />}
-          size='lg'
-          variant='ghost'
-          fontWeight='bold'
+          size="lg"
+          variant="ghost"
+          fontWeight="bold"
           onClick={routeExplore}
         >
           Explore
         </Button>
         <Button
           leftIcon={<FaInfoCircle />}
-          size='lg'
-          variant='ghost'
-          fontWeight='bold'
+          size="lg"
+          variant="ghost"
+          fontWeight="bold"
           onClick={routeAbout}
         >
           About
