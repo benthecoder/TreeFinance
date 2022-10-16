@@ -5,8 +5,8 @@
 ![home](media/home.png)
 ![plaid](media/plaid.png)
 ![dashboard](media/dashboard.png)
-![about](media/about.png)
 ![twilio](media/twilio.png)
+![about](media/about.png)
 
 ## Inspiration
 
@@ -87,7 +87,6 @@ to run the backend
 
 Note: you need plaid_api_secrets.json file in the backend folder
 
-````bash
 
 ```bash
 npm run server
