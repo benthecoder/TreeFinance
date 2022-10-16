@@ -1,0 +1,5 @@
+flask
+python-dotenv
+plaid-python
+mastercard-oauth1-signer
+mastercard-client-encryption

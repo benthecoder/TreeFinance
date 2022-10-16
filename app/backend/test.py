@@ -40,6 +40,10 @@ from plaid.model.transfer_create_idempotency_key import TransferCreateIdempotenc
 from plaid.model.transfer_user_address_in_request import TransferUserAddressInRequest
 from plaid.api import plaid_api
 
+import json
+import mastercard_api_client as mastercard
+import openapi_client as oac
+
 PLAID_COUNTRY_CODES = ['US','CA']
 PLAID_PRODUCTS = ['auth','transactions']
 PLAID_ENV = 'sandbox'
@@ -113,8 +117,8 @@ def get_access_token():
 
 @app.route("/transactions", methods=["POST"])
 def transactions():
-    user_id = request.args.get('item_id')
-    user_auth = request.args.get('access_token')
+    user_id = flask.request.args.get('item_id')
+    user_auth = flask.request.args.get('access_token')
 
     cursor = ''
     added = []
@@ -136,6 +140,17 @@ def transactions():
     except plaid.ApiException as e:
         error_response = e
         return flask.jsonify(error_response)
+    
+@app.route('/get_impact_metrics', methods=['POST'])
+def get_impact_metrics():
+    api_client = mastercard.priceless()
+    impact_metric_api = oac.ImpactMetricsApi(api_client)
+    
+    donation_amount = flask.request.args.get('donation_amount')
+    currency = flask.request.args.get('currency')
+    
+    res = impact_metric_api.get_impact_metrics(donation_amount, currency)
+    return json.loads(res.data)
 
 if __name__ == '__main__':
     app.run(port=8739)
