@@ -1,0 +1,17 @@
+{
+  "paths": {
+    "$": {
+      "toEncrypt": {},
+      "toDecrypt": {}
+    }
+  },
+
+  "oaepPaddingDigestAlgorithm": "SHA256",
+  "ivFieldName": "iv",
+  "encryptedKeyFieldName": "encryptedKey",
+  "encryptedValueFieldName": "encryptedData",
+  "oaepHashingAlgorithmFieldName": "oaepHashingAlgorithm",
+  "publicKeyFingerprintFieldName": "publicKeyFingerprint",
+  "dataEncoding": "hex",
+  "encryptionCertificate": "test.crt"
+}

@@ -1,1 +1,5 @@
+/__pycache__
 /venv
+plaid_api_secrets.json
+hackwashu-sandbox.p12
+test.crt
