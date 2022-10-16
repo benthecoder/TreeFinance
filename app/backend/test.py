@@ -150,7 +150,7 @@ def get_impact_metrics():
     currency = flask.request.args.get('currency')
     
     res = impact_metric_api.get_impact_metrics(donation_amount, currency)
-    return json.loads(res.data)
+    return flask.jsonify(res.to_dict())
 
 if __name__ == '__main__':
     app.run(port=8739)
