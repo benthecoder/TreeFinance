@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Box, VStack, Skeleton } from "@chakra-ui/react";
+import React, { useEffect, useState } from 'react';
+import { Box, VStack, Skeleton } from '@chakra-ui/react';
 
-import Navbar from "./components/Navbar";
-import Dashboard from "./components/Dashboard";
+import Navbar from './components/Navbar';
+import Dashboard from './components/Dashboard';
 
 function App() {
   //get access_token from local storage
-  const access_token = localStorage.getItem("access_token");
+  const access_token = localStorage.getItem('access_token');
+
   const [transactions, setTransactions] = useState({});
 
   useEffect(() => {
+    if (!access_token) {
+      window.location.href = 'http://localhost:3000/link';
+    }
     const getTransactions = async () => {
-      fetch("http://127.0.0.1:5000/api/transactions", {
-        method: "POST",
+      fetch('http://127.0.0.1:5000/api/transactions', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           access_token,
@@ -23,25 +27,25 @@ function App() {
         .then((res) => res.json())
         .then((data) => {
           setTransactions(data.transactions);
-          console.log(data);
+          console.log(data.transactions);
         });
     };
 
     getTransactions();
-  }, [access_token]);
+  }, []);
 
   return (
     <Box>
       <Navbar />
       <Box px={16}>
-        <VStack spacing={8} align="stretch" mt={20} alignItems="center">
-          {transactions.length > 0 ? (
+        <VStack spacing={8} align='stretch' mt={20} alignItems='center'>
+          {transactions.length > 100 ? (
             <Dashboard data={transactions} />
           ) : (
             <>
-              <Skeleton height="250px" width={"1000px"} color="white" />
-              <Skeleton height="250px" width={"1000px"} color="white" />
-              <Skeleton height="250px" width={"1000px"} color="white" />
+              <Skeleton height='250px' width={'1000px'} color='white' />
+              <Skeleton height='250px' width={'1000px'} color='white' />
+              <Skeleton height='250px' width={'1000px'} color='white' />
             </>
           )}
         </VStack>

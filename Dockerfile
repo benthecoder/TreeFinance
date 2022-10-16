@@ -10,7 +10,7 @@ RUN npm install
 RUN npm run build
 
 # Build step #2: build the API with the client as static files
-FROM python:3.9-alpine
+FROM python:3.9-bullseye
 COPY --from=build /app/build ./build
 
 RUN mkdir ./api
@@ -19,7 +19,7 @@ RUN pip install --upgrade pip
 RUN pip install -r ./api/requirements.txt
 ENV FLASK_ENV production
 
-EXPOSE 3000
-WORKDIR /app/api
+EXPOSE 5000
+WORKDIR /api
 
-CMD ["gunicorn", "-b", ":3000", "api:app"]
+CMD ["gunicorn", "-b", ":5000", "main:app"]

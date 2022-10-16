@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Box,
@@ -12,7 +12,7 @@ import {
   StatNumber,
   Kbd,
   Tag,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {
   LineChart,
   Line,
@@ -23,7 +23,7 @@ import {
   YAxis,
   Tooltip,
   Legend,
-} from "recharts";
+} from 'recharts';
 
 function Dashboard({ data }) {
   const categoryCounts = data.reduce((acc, item) => {
@@ -46,12 +46,11 @@ function Dashboard({ data }) {
     return acc;
   }, {});
 
-  console.log("tghasdfa", data);
   // group the data by authorized date for each year into months
   const monthlyData = data.reduce((acc, item) => {
     const date = new Date(item.date);
     const year = date.getFullYear();
-    const month = date.toLocaleString("default", { month: "long" });
+    const month = date.toLocaleString('default', { month: 'long' });
 
     // if the year is not in the accumulator, add it with an array of the month
     if (!acc[year]) {
@@ -66,18 +65,18 @@ function Dashboard({ data }) {
   }, {});
 
   const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   for (const year in monthlyData) {
@@ -118,14 +117,14 @@ function Dashboard({ data }) {
     console.log(payload);
     if (active && payload && payload.length) {
       return (
-        <Box backgroundColor={"white"} color="black" p="6">
+        <Box backgroundColor={'white'} color='black' p='6'>
           <Text>
             You had transacted
-            <span styles={{ fontWeight: "bold" }}>
-              {" "}
+            <span styles={{ fontWeight: 'bold' }}>
+              {' '}
               {payload[0].value}
-            </span>{" "}
-            times on <span styles={{ fontWeight: "bold" }}> {label}</span>{" "}
+            </span>{' '}
+            times on <span styles={{ fontWeight: 'bold' }}> {label}</span>{' '}
             category items
           </Text>
         </Box>
@@ -137,11 +136,11 @@ function Dashboard({ data }) {
 
   const convertFormat = (amount) => {
     return (
-      "$" +
+      '$' +
       amount
         .toFixed(2)
         .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     );
   };
 
@@ -165,16 +164,16 @@ function Dashboard({ data }) {
     return (
       <Stat
         px={{ base: 1, md: 10 }}
-        py="26px"
-        shadow="xl"
-        border="1px solid"
-        borderColor="gray.500"
-        bg="#82E5D8"
-        rounded="lg"
-        color={"black"}
+        py='26px'
+        shadow='xl'
+        border='1px solid'
+        borderColor='gray.500'
+        bg='#82E5D8'
+        rounded='lg'
+        color={'black'}
       >
-        <StatLabel fontWeight={"bold"}>{title}</StatLabel>
-        <StatNumber fontSize={"3xl"} fontWeight={"bold"}>
+        <StatLabel fontWeight={'bold'}>{title}</StatLabel>
+        <StatNumber fontSize={'3xl'} fontWeight={'bold'}>
           {value}
         </StatNumber>
       </Stat>
@@ -190,13 +189,13 @@ function Dashboard({ data }) {
   // genrate random color that looks good in dark mode
   const randomColor = () => {
     const colors = [
-      "#FF0000",
-      "#FF7F00",
-      "#FFFF00",
-      "#00FF00",
-      "#0000FF",
-      "#4B0082",
-      "#9400D3",
+      '#FF0000',
+      '#FF7F00',
+      '#FFFF00',
+      '#00FF00',
+      '#0000FF',
+      '#4B0082',
+      '#9400D3',
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   };
@@ -205,11 +204,11 @@ function Dashboard({ data }) {
     return (
       <>
         <BarChart width={1250} height={400} data={categoryCountsList}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='name' />
           <YAxis />
           <Tooltip content={<CustomTooltip />} />
-          <Bar dataKey="value" fill="#8884d8" />
+          <Bar dataKey='value' fill='#8884d8' />
         </BarChart>
         <LineChart
           width={1250}
@@ -222,21 +221,29 @@ function Dashboard({ data }) {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='month' />
           <YAxis />
           <Tooltip />
           <Legend />
-          {Object.keys(monthlyData).map((year) => {
-            return (
-              <Line
-                type="monotone"
-                dataKey={year}
-                stroke={randomColor()}
-                strokeWidth={3}
-              />
-            );
-          })}
+          <Line
+            type='monotone'
+            dataKey='2020'
+            stroke='#8884d8'
+            strokeWidth={3}
+          />
+          <Line
+            type='monotone'
+            dataKey='2021'
+            stroke='#82ca9d'
+            strokeWidth={3}
+          />
+          <Line
+            type='monotone'
+            dataKey='2022'
+            stroke='#FF0000'
+            strokeWidth={3}
+          />
         </LineChart>
       </>
     );
@@ -246,58 +253,59 @@ function Dashboard({ data }) {
     <Center mb={20}>
       <VStack spacing={10}>
         <Heading>Statistics</Heading>
-        <ChartStats />
-        <Text align="center" fontSize={24}>
-          A total of{" "}
-          <Tag size="lg" variant="subtle" colorScheme="teal">
+
+        <Text align='center' fontSize={24}>
+          A total of{' '}
+          <Tag size='lg' variant='subtle' colorScheme='teal'>
             {data.length}
-          </Tag>{" "}
-          transactions were made in the past{" "}
-          <Tag size="lg" variant="subtle" colorScheme="teal">
+          </Tag>{' '}
+          transactions were made in the past{' '}
+          <Tag size='lg' variant='subtle' colorScheme='teal'>
             {dateDiff(
               data[0].authorized_date,
               data[data.length - 1].authorized_date
             )}
-          </Tag>{" "}
+          </Tag>{' '}
           days
         </Text>
-        <Text align="center" fontSize={24}>
-          A total of{" "}
-          <Tag size="lg" variant="subtle" colorScheme="teal">
+        <Text align='center' fontSize={24}>
+          A total of{' '}
+          <Tag size='lg' variant='subtle' colorScheme='teal'>
             {convertFormat(total)}
-          </Tag>{" "}
+          </Tag>{' '}
           was spent
         </Text>
-        <Text align="center" fontSize={24}>
-          Your top spending category was{" "}
-          <Tag size="lg" variant="subtle" colorScheme="teal">
-            {" "}
+        <Text align='center' fontSize={24}>
+          Your top spending category was{' '}
+          <Tag size='lg' variant='subtle' colorScheme='teal'>
+            {' '}
             {Object.keys(categoryCounts)[0]}
           </Tag>
-          , a total of{" "}
-          <Tag size="lg" variant="subtle" colorScheme="teal">
+          , a total of{' '}
+          <Tag size='lg' variant='subtle' colorScheme='teal'>
             {Object.values(categoryCounts)[0]}
-          </Tag>{" "}
+          </Tag>{' '}
           transactions were made
         </Text>
-        <Text fontSize="3xl" fontWeight="bold">
-          If you donated to the Priceless Planet Coalition, you would have:{" "}
+        <Text fontSize='3xl' fontWeight='bold'>
+          If you donated to the Priceless Planet Coalition, you would have:{' '}
         </Text>
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
           <StatsCard
-            color="teal"
-            title={"Donated"}
+            color='teal'
+            title={'Donated'}
             value={convertFormat(donation)}
           />
           <StatsCard
-            title={"Planted"}
-            value={(donation / 2).toFixed(2) + " Trees"}
+            title={'Planted'}
+            value={(donation / 2).toFixed(2) + ' Trees'}
           />
           <StatsCard
-            title={"Sequestered"}
-            value={(donation * 50).toFixed(2) + " lbs of CO2"}
+            title={'Sequestered'}
+            value={(donation * 50).toFixed(2) + ' lbs of CO2'}
           />
         </SimpleGrid>
+        <ChartStats />
       </VStack>
     </Center>
   );

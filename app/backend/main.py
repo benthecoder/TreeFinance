@@ -94,7 +94,7 @@ products = []
 for product in PLAID_PRODUCTS:
     products.append(Products(product))
 
-app = flask.Flask(__name__,static_folder='../build', static_url_path='/')
+app = flask.Flask(__name__, static_folder="../build", static_url_path="/")
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
