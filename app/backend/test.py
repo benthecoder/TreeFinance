@@ -143,13 +143,14 @@ def transactions():
     
 @app.route('/get_impact_metrics', methods=['POST'])
 def get_impact_metrics():
-    api_client = mastercard.priceless()
-    impact_metric_api = oac.ImpactMetricsApi(api_client)
+    # api_client = mastercard.priceless()
+    # impact_metric_api = oac.ImpactMetricsApi(api_client)
     
     donation_amount = flask.request.args.get('donation_amount')
     currency = flask.request.args.get('currency')
     
-    res = impact_metric_api.get_impact_metrics(donation_amount, currency)
+    # res = impact_metric_api.get_impact_metrics(donation_amount, currency)
+    res = mastercard.impact_metrics(donation_amount, currency)
     return flask.jsonify(res.to_dict())
 
 if __name__ == '__main__':
